@@ -1,12 +1,9 @@
 import pybullet as p
 pysicsClient = p.connect(p.GUI)
-
-p.stepSimulation()
-p.configureDebugVisualizer(p.COV_ENABLE_GUI,0)
-
+p.loadSDF("box.sdf")
+import time
+for i in range(1000):
+    p.stepSimulation()
+    time.sleep(1/60)
+    print(i)
 p.disconnect()
-
-
-ab = 10
-
-ac = 20
