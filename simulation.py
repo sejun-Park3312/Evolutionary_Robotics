@@ -24,9 +24,9 @@ class SIMULATION:
         for t in range(self.total_time):
             p.stepSimulation()
             self.robot.Sense(self.total_time, t)
+            self.robot.Think()
             self.robot.Act(t)
-            for linkName, sensor in self.robot.sensors.items():
-                print(f"Step {t}, Link: {linkName}, Sensor Value: {sensor.values[t]}")
+
             time.sleep(1/60)
     #     print(backLegSensorValues[i])
     #         print(t)
@@ -34,8 +34,3 @@ class SIMULATION:
     def __del__(self):      # destructor, 소멸자
 
         p.disconnect()
-        for linkName in pyrosim.linkNamesToIndices:
-            self.robot.sensors[linkName].Save_Values()
-
-        for jointName in pyrosim.jointNamesToIndices:
-            self.robot.motors[jointName].Save_Values()
