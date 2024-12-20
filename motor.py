@@ -35,3 +35,4 @@ class MOTOR:
         os.makedirs('data', exist_ok=True)
         file_path = os.path.join('data', f'{self.jointName.decode("utf-8")}.npy')
         np.save(file_path,self.motorValues)
+

@@ -1,11 +1,13 @@
 import pyrosim.pyrosim as pyrosim
 import numpy as np
+import pybullet as p
 import os
 
 class SENSOR:
     def __init__(self, linkName):
         self.linkName = linkName
         self.values = []
+        self.motor = []
 
 
     def Get_Value(self, total_time, t):
