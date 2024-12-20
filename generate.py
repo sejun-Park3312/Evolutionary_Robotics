@@ -24,4 +24,9 @@ def Generate_Brain():
     pyrosim.Send_Motor_Neuron(name=3, jointName="body_Rleg")
     pyrosim.Send_Motor_Neuron(name=4, jointName="body_Lleg")
 
+    pyrosim.Send_Synapse(sourceNeuronName=0, targetNeuronName=3, weight=-1.0)
+    pyrosim.Send_Synapse(sourceNeuronName=1, targetNeuronName=3, weight=1.0)
+    pyrosim.Send_Synapse(sourceNeuronName=0, targetNeuronName=4, weight=-1.0)
+    pyrosim.Send_Synapse(sourceNeuronName=2, targetNeuronName=4, weight=1.0)
+
     pyrosim.End()
