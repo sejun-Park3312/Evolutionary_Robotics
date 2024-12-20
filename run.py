@@ -1,6 +1,7 @@
-from sensor import SENSOR
 import generate as g
+import pybullet as p
+
 
 g.Generate_Brain()
-SENSOR('R')
+
 
