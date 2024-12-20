@@ -1,32 +1,41 @@
+from world import WORLD
+from robot import ROBOT
 import pybullet as p
 import pybullet_data
 import pyrosim.pyrosim as pyrosim
 import time
-import numpy
-import os
 
-pysicsClient = p.connect(p.GUI)
-p.setRealTimeSimulation(1)
-p.setAdditionalSearchPath(pybullet_data.getDataPath())
-p.setGravity(gravX = 0, gravY = 0, gravZ = -9.8)
+class SIMULATION:
+    def __init__(self):     # constructor, 생성자
 
-planeId = p.loadURDF('plane.urdf')
-robotID = p.loadURDF('body.urdf')
-pyrosim.Prepare_To_Simulate(robotID)
+        self.physicsClient = p.connect(p.GUI)
+        self.setAdditionalSearchPath = p.setAdditionalSearchPath(pybullet_data.getDataPath())
+        self.setGravity = p.setGravity(0,0,-9.8)
+        self.world = WORLD()
+        self.robot = ROBOT()
+        self.Prepare_To_Simulate = pyrosim.Prepare_To_Simulate(self.robot.robotID)
+        self.total_time = 200
+        self.Prepare_To_Sense = self.robot.Prepare_To_Sense()
+        self.Prepare_To_Act = self.robot.Prepare_To_Act(self.total_time)
 
-backLegSV = numpy.zeros(10000)
 
-for i in range(1000):
-    p.stepSimulation()
-    backLegTouch = pyrosim.Get_Touch_Sensor_Value_For_Link('LLeg')
-    backLegSV[i] = backLegTouch
-    print(f'step{i}, BackLeg Touch Sonsor Value : {backLegTouch}')
-    time.sleep(1/60)
-    print(i)
-p.disconnect()
+    def run(self):
 
-data_directory = 'Data'
-os.makedirs(data_directory, exist_ok = True)
-output_filenames = os.path.join(data_directory, 'backLegSensorValues.npy')
-numpy.save(output_filenames, backLegSV)
-print(f'sensor values saved to {output_filenames}')
+        for t in range(self.total_time):
+            p.stepSimulation()
+            self.robot.Sense(self.total_time, t)
+            self.robot.Act(t)
+            for linkName, sensor in self.robot.sensors.items():
+                print(f"Step {t}, Link: {linkName}, Sensor Value: {sensor.values[t]}")
+            time.sleep(1/60)
+    #     print(backLegSensorValues[i])
+    #         print(t)
+
+    def __del__(self):      # destructor, 소멸자
+
+        p.disconnect()
+        for linkName in pyrosim.linkNamesToIndices:
+            self.robot.sensors[linkName].Save_Values()
+
+        for jointName in pyrosim.jointNamesToIndices:
+            self.robot.motors[jointName].Save_Values()
