@@ -6,7 +6,7 @@ import pyrosim.pyrosim as pyrosim
 class SOLUTION:
 
     def __init__(self):
-        self.weights = 2 * np.random.rand(3, 2) - 1 # create an m x n matrix with random numbers from -1 to 1
+        self.weights = np.load('prev_weights.npy') # create an m x n matrix with random numbers from -1 to 1
         self.Create_Brain()
         self.fitness = []
 
