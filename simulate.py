@@ -1,4 +1,7 @@
 from simulation import SIMULATION
+import generate as g
 
-simulation = SIMULATION()
+g.Generate_Brain()
+
+simulation = SIMULATION(200)
 simulation.run()

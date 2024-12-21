@@ -6,7 +6,7 @@ import pyrosim.pyrosim as pyrosim
 import time
 
 class SIMULATION:
-    def __init__(self):     # constructor, 생성자
+    def __init__(self, sim_time):     # constructor, 생성자
 
         self.physicsClient = p.connect(p.GUI)
         self.setAdditionalSearchPath = p.setAdditionalSearchPath(pybullet_data.getDataPath())
@@ -14,7 +14,7 @@ class SIMULATION:
         self.world = WORLD()
         self.robot = ROBOT()
         self.Prepare_To_Simulate = pyrosim.Prepare_To_Simulate(self.robot.robotID)
-        self.total_time = 200
+        self.total_time = sim_time
         self.Prepare_To_Sense = self.robot.Prepare_To_Sense()
         self.Prepare_To_Act = self.robot.Prepare_To_Act(self.total_time)
 
