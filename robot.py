@@ -41,7 +41,7 @@ class ROBOT:
         # self.nn.Print()
 
     def Get_Fitness(self):
-        stateOfLinkZero = p.getLinkState(self.robotID, 0)
+        stateOfLinkZero = p.getLinkState(self.robotID, 1)
         # it is a tuple with a bunch of tuples inside it.
         # the first tuple contains the position of the link
         xCoordinateOfLinkZero = stateOfLinkZero[0][0]
