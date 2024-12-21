@@ -40,6 +40,8 @@ class HILL_CLIMBER:
         else:
             self.parent = self.parent
 
+        np.save('prev_weights.npy', self.parent.weights)
+
     def Print(self, iterate):
         self.fitness_results[iterate, 0] = self.parent.fitness
         self.fitness_results[iterate, 1] = self.child.fitness
