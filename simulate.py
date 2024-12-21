@@ -3,5 +3,5 @@ import generate as g
 
 g.Generate_Brain()
 
-simulation = SIMULATION(200)
+simulation = SIMULATION(100)
 simulation.run()

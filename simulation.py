@@ -28,8 +28,6 @@ class SIMULATION:
             self.robot.Act(t)
 
             time.sleep(1/60)
-    #     print(backLegSensorValues[i])
-    #         print(t)
 
     def __del__(self):      # destructor, 소멸자
 
