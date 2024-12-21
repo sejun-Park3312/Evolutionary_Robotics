@@ -1,7 +1,9 @@
 import os
+from hillclimber import HILL_CLIMBER
+
+hc = HILL_CLIMBER()
 
 
-for i in range(1):
+hc.Evolve()
 
-    os.system('python simulate.py')
-    os.system('python hillclimber')
+os.system("python simulate.py GUI")

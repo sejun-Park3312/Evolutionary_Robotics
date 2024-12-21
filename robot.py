@@ -39,3 +39,14 @@ class ROBOT:
     def Think(self):
         self.nn.Update()
         # self.nn.Print()
+
+    def Get_Fitness(self):
+        stateOfLinkZero = p.getLinkState(self.robotID, 0)
+        # it is a tuple with a bunch of tuples inside it.
+        # the first tuple contains the position of the link
+        xCoordinateOfLinkZero = stateOfLinkZero[0][0]
+        f = open("fitness.txt", "w")
+        f.write(str(xCoordinateOfLinkZero))
+        f.close()
+        # print(xCoordinateOfLinkZero)
+        exit()

@@ -1,7 +1,8 @@
 from simulation import SIMULATION
-import generate as g
+import sys
 
-g.Generate_Brain()
+DirectOrGUI = sys.argv[1]
 
-simulation = SIMULATION(100)
+simulation = SIMULATION(100, DirectOrGUI)
 simulation.run()
+simulation.Get_Fitness()

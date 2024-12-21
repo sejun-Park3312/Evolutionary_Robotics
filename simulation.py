@@ -4,11 +4,16 @@ import pybullet as p
 import pybullet_data
 import pyrosim.pyrosim as pyrosim
 import time
+import constant as c
 
 class SIMULATION:
-    def __init__(self, sim_time):     # constructor, 생성자
+    def __init__(self, sim_time, DirectOrGUI):     # constructor, 생성자
 
-        self.physicsClient = p.connect(p.GUI)
+        if DirectOrGUI == "DIRECT":
+            self.physicsClient = p.connect(p.DIRECT)
+        else:
+            self.physicsClient = p.connect(p.GUI)
+
         self.setAdditionalSearchPath = p.setAdditionalSearchPath(pybullet_data.getDataPath())
         self.setGravity = p.setGravity(0,0,-9.8)
         self.world = WORLD()
@@ -27,7 +32,11 @@ class SIMULATION:
             self.robot.Think()
             self.robot.Act(t)
 
-            time.sleep(1/60)
+            time.sleep(c.numTimeSteps)
+
+    def Get_Fitness(self):
+        self.robot.Get_Fitness()
+
 
     def __del__(self):      # destructor, 소멸자
 
