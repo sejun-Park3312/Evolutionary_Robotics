@@ -7,7 +7,7 @@ import time
 import constant as c
 
 class SIMULATION:
-    def __init__(self, sim_time, DirectOrGUI):     # constructor, 생성자
+    def __init__(self, DirectOrGUI):     # constructor, 생성자
 
         if DirectOrGUI == "DIRECT":
             self.physicsClient = p.connect(p.DIRECT)
@@ -19,20 +19,28 @@ class SIMULATION:
         self.world = WORLD()
         self.robot = ROBOT()
         self.Prepare_To_Simulate = pyrosim.Prepare_To_Simulate(self.robot.robotID)
-        self.total_time = sim_time
         self.Prepare_To_Sense = self.robot.Prepare_To_Sense()
+        self.total_time = c.total_time
         self.Prepare_To_Act = self.robot.Prepare_To_Act(self.total_time)
-
+        self.directOrGUI = DirectOrGUI
 
     def run(self):
 
-        for t in range(self.total_time):
-            p.stepSimulation()
-            self.robot.Sense(self.total_time, t)
-            self.robot.Think()
-            self.robot.Act(t)
+        if self.directOrGUI == 'GUI':
+            for t in range(self.total_time):
+                p.stepSimulation()
+                self.robot.Sense(self.total_time, t)
+                self.robot.Think()
+                self.robot.Act(t)
+                time.sleep(c.numTimeSteps)
 
-            time.sleep(c.numTimeSteps)
+        else:
+            for t in range(self.total_time):
+                p.stepSimulation()
+                self.robot.Sense(self.total_time, t)
+                self.robot.Think()
+                self.robot.Act(t)
+
 
     def Get_Fitness(self):
         self.robot.Get_Fitness()
